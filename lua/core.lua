@@ -61,4 +61,5 @@ vim.keymap.set("n", "to", "<cmd>tabo<CR>")     -- close other tabs
 vim.keymap.set("n", "tn", "<cmd>tabn<CR>")     -- go to next tab
 vim.keymap.set("n", "tp", "<cmd>tabp<CR>")     -- previous tab
 
-vim.keymap.set("n", "<leader>x", "<cmd>ter<cr>i")
+vim.keymap.set("n", "z", "<cmd>ter<cr>i")
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
