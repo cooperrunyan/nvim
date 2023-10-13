@@ -15,18 +15,19 @@ vim.opt.smartindent = true
 vim.opt.autoindent = true
 vim.opt.autowrite = true
 vim.opt.undofile = true
-vim.opt.wrap = true
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
+vim.opt.wrap = false
 vim.opt.swapfile = false
 vim.opt.mouse = "a"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
-
+vim.opt.showmatch = true
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.signcolumn = "yes"
-
+vim.opt.infercase = true
 vim.opt.backspace = "indent,eol,start"
 vim.opt.completeopt = "menuone,noinsert,preview"
 
@@ -38,7 +39,8 @@ vim.opt.splitbelow = true
 vim.opt.iskeyword:append("-")
 
 vim.keymap.set("n", "<S-u>", "<cmd>redo<CR>")
-vim.keymap.set("n", "q", "<cmd>close<CR>")
+vim.keymap.set("n", "<leader>q", "q")
+vim.keymap.set("n", "q", "<cmd>q<CR>")
 
 vim.keymap.set("n", "<D-s>", ":w<CR>")
 vim.keymap.set("v", "<D-c>", '"+y')
@@ -59,7 +61,10 @@ vim.keymap.set("n", "tt", "<cmd>tabnew<CR>")   -- open new tab
 vim.keymap.set("n", "tq", "<cmd>tabclose<CR>") -- close tab
 vim.keymap.set("n", "to", "<cmd>tabo<CR>")     -- close other tabs
 vim.keymap.set("n", "tn", "<cmd>tabn<CR>")     -- go to next tab
+vim.keymap.set("n", "<tab>", "<cmd>tabn<CR>")  -- go to next tab
 vim.keymap.set("n", "tp", "<cmd>tabp<CR>")     -- previous tab
 
 vim.keymap.set("n", "z", "<cmd>ter<cr>i")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+vim.keymap.set("n", "<leader>chx", "<cmd>!chmod a+x %<CR>")
