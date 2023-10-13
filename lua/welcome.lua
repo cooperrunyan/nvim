@@ -1,4 +1,5 @@
 local M = {}
+local utils = require("utils")
 
 M.banner = {
   [[;                        :                                                           ]],
@@ -103,31 +104,7 @@ M.line = 88
 -- 	[[╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝]],
 -- }
 
-local pad_line = function(str)
-  local len = string.len(str)
-  local pad = string.rep(" ", M.line - len)
-  return str .. pad
-end
-
-local msg = function(s)
-  local sep = "\n"
-  local t = {}
-  for str in string.gmatch(s, "([^" .. sep .. "]+)") do
-    table.insert(t, pad_line(str))
-  end
-  return t
-end
-M.msg = msg
-
-local map = function(tbl)
-  local t = {}
-  for _, s in ipairs(tbl) do
-    table.insert(t, msg(s))
-  end
-  return t
-end
-
-M.quotes = map({
+M.quotes = utils.map({
   [[It'd be naive of us, Mr. President, to imagine that these new developments would
 cause a change in Soviet expansionist policy. I mean, we must be increasingly on the
 alert to prevent them taking over other mine shafts space, in order to breed more
@@ -145,7 +122,7 @@ and we were afraid of a doomsday gap.]],
 security that would be? I mean, he'll see everything, he'll... he'll see the Big Board!]],
   [[Gentlemen, you can't fight in here! This is the War Room.]],
   [[I don't think my father, the inventor of Toaster Strudel, would be too pleased
- to hear about this.]],
+to hear about this.]],
 
   [[Gretchen, stop trying to make *fetch* happen. It's not going to happen!]],
 
@@ -212,13 +189,13 @@ Hello?]],
 it was bogus. So if we don't get some cool rules ourselves, pronto, we'll just be bogus
 too." Yeah?]],
   [[You don't want the truth because deep down in places you don't talk about at parties,
-you want me on that wall, you need me on that wall. We use words like "honor,"
-"code," "loyalty." We use these words as the backbone of a life spent defending something.
-You use them as a punch line. I have neither the time nor the inclination to explain
-myself to a man who rises and sleeps under the blanket of the very freedom that I provide
-and then questions the manner in which I provide it. I would rather that you just said
-"thank you" and went on your way. Otherwise, I suggest you pick up a weapon and stand the
-post. Either way, I don't give a damn what you think you're entitled to!]],
+you want me on that wall, you need me on that wall. We use words like "honor," "code,"
+"loyalty." We use these words as the backbone of a life spent defending something. You
+use them as a punch line. I have neither the time nor the inclination to explain myself
+to a man who rises and sleeps under the blanket of the very freedom that I provide and
+then questions the manner in which I provide it. I would rather that you just said
+"thank you" and went on your way. Otherwise, I suggest you pick up a weapon and stand
+the post. Either way, I don't give a damn what you think you're entitled to!]],
   [[The greatest trick the Devil ever pulled was convincing the world he didn't exist.]],
   [[I have nipples, Greg. Could you milk me?]],
   [[Whenever possible, put on side 1 of Led Zeppelin IV.]],
