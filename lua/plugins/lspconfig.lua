@@ -19,6 +19,7 @@ return {
     end
 
     vim.keymap.set("n", "<C-.>", vim.lsp.buf.code_action)
+    vim.keymap.set("n", "<C-Space>", vim.lsp.buf.code_action)
     vim.keymap.set("n", "K", vim.lsp.buf.hover)
 
     mason_lspconfig.setup_handlers({
@@ -42,7 +43,6 @@ return {
         if srv == "denols" then
           o.root_dir = require('lspconfig.util').root_pattern('deno.json')
         end
-
 
         require('lspconfig')[srv].setup(o)
       end,
@@ -100,7 +100,8 @@ return {
             standalone = false,
             on_attach = function(client, bufnr)
               on_attach(client, bufnr)
-              vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+              -- vim.keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
+              -- vim.keymap.set("n", "<C-.>", rt.code_action_group.code_action_group, { buffer = bufnr })
               vim.keymap.set("n", "<Leader>rc", rt.open_cargo_toml.open_cargo_toml, { buffer = bufnr })
               vim.keymap.set("n", "<Leader>rp", rt.parent_module.parent_module, { buffer = bufnr })
               vim.keymap.set("n", "<Leader>rr", "<cmd>RustRun<CR>", { buffer = bufnr })
@@ -111,6 +112,24 @@ return {
           },
         })
       end
+    })
+
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+      vim.lsp.handlers.hover, {
+        border = "rounded"
+      }
+    )
+
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+      vim.lsp.handlers.signature_help, {
+        border = "rounded"
+      }
+    )
+    vim.diagnostic.config({
+      update_in_insert = true,
+      float = {
+        border = "rounded"
+      }
     })
   end,
   opts = {
