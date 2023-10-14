@@ -68,3 +68,23 @@ vim.keymap.set("n", "z", "<cmd>ter<cr>i")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 vim.keymap.set("n", "<leader>chx", "<cmd>!chmod a+x %<CR>")
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = "rounded"
+  }
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help, {
+    border = "rounded"
+  }
+)
+vim.diagnostic.config({
+  update_in_insert = true,
+  float = {
+    border = "rounded"
+  }
+})
+
+vim.api.nvim_set_hl(0, "FloatBoarder", { link = "Normal" })

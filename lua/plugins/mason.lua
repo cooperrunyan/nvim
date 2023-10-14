@@ -4,14 +4,13 @@ return {
     "williamboman/mason-lspconfig.nvim",
   },
   lazy = true,
-  event = "VeryLazy",
   opts = {},
   config = function()
     local mason = require("mason")
     local mason_lspconfig = require("mason-lspconfig")
 
     mason.setup({
-      ui = { border = "none" },
+      ui = { border = "rounded" },
     })
 
     mason_lspconfig.setup({
@@ -22,7 +21,16 @@ return {
         "dockerls",
         "jsonls",
         "lua_ls",
+        "cssls",
         "rust_analyzer",
+        "dotls",
+        "tsserver",
+        "yamlls",
+        "taplo",
+        "bashls",
+        "texlab",
+        "biome",
+        "efm"
       },
     })
   end,
