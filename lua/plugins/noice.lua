@@ -9,18 +9,22 @@ return {
         ["cmp.entry.get_documentation"] = true,
       },
     },
+    presets = {
+      command_palette = true,
+      long_message_to_split = true,
+    },
   },
   dependencies = {
     "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
+    -- "rcarriga/nvim-notify",
   },
-  config = function(_, opts)
-    require("notify").setup({
-      render = "minimal",
-      max_width = function()
-        return math.floor(vim.o.columns * 0.7)
-      end,
-    })
-    require("noice").setup(opts)
-  end,
+  -- config = function(_, opts)
+  -- require("notify").setup({
+  --   render = "minimal",
+  --   max_width = function()
+  --     return math.floor(vim.o.columns * 0.5)
+  --   end,
+  -- })
+  -- require("noice").setup(opts)
+  -- end,
 }

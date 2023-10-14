@@ -6,13 +6,13 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
   },
-  --  cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+  cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
   opts = {
     highlight = {
       enable = true,
     },
     indent = { enable = true },
-    autotag = { enable = true },
+    -- autotag = { enable = true },
     ensure_installed = {
       "bash",
       "c",

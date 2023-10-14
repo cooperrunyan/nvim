@@ -4,14 +4,15 @@ return {
     "williamboman/mason-lspconfig.nvim",
   },
   lazy = true,
-  opts = {},
-  config = function()
+  cmd = "Mason",
+  opts = {
+    ui = { border = "rounded" },
+  },
+  config = function(_, opts)
     local mason = require("mason")
     local mason_lspconfig = require("mason-lspconfig")
 
-    mason.setup({
-      ui = { border = "rounded" },
-    })
+    mason.setup(opts)
 
     mason_lspconfig.setup({
       automatic_installation = true,
@@ -30,7 +31,9 @@ return {
         "bashls",
         "texlab",
         "biome",
-        "efm"
+        "efm",
+        "sumneko_lua",
+        "glow"
       },
     })
   end,
