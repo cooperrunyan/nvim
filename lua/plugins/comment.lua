@@ -1,8 +1,8 @@
 return {
-	"numToStr/Comment.nvim",
-	event = "VeryLazy",
-	opts = {
-		padding = true,
-		sticky = true,
-	},
+  "numToStr/Comment.nvim",
+  event = "BufEnter",
+  opts = {
+    padding = true,
+    sticky = true,
+  },
 }

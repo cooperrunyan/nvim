@@ -1,14 +1,13 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "hrsh7th/cmp-nvim-lsp",
     "lukas-reineke/lsp-format.nvim",
-    "simrat39/rust-tools.nvim",
     "creativenull/efmls-configs-nvim",
+    "simrat39/rust-tools.nvim",
   },
-  event = "BufEnter",
+  event = { "VeryLazy" },
   config = function(_, opts)
     local mason_lspconfig = require("mason-lspconfig")
 
@@ -18,16 +17,11 @@ return {
       require('lsp-format').on_attach(client, bufnr)
     end
 
-    vim.keymap.set("n", "<C-.>", vim.lsp.buf.code_action)
-    vim.keymap.set("n", "<C-Space>", vim.lsp.buf.code_action)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover)
-
     mason_lspconfig.setup_handlers({
       function(srv)
         local o = {
           on_attach = on_attach,
           capabilities = capabilities,
-          auto_format = true,
         }
 
         if srv == "lua_ls" then
@@ -42,6 +36,21 @@ return {
 
         if srv == "denols" then
           o.root_dir = require('lspconfig.util').root_pattern('deno.json')
+        end
+
+        if srv == "taplo" then
+          local inspect = function(f)
+            return function()
+              if vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
+                require("crates").show_popup()
+              else
+                f()
+              end
+            end
+          end
+
+          vim.keymap.set("n", "K", inspect(vim.lsp.buf.hover))
+          vim.keymap.set("n", "<C-Space>", inspect(vim.lsp.buf.code_action))
         end
 
         require('lspconfig')[srv].setup(o)
@@ -59,7 +68,6 @@ return {
         require('lspconfig').efm.setup({
           on_attach = on_attach,
           capabilities = capabilities,
-          auto_format = true,
           init_options = { documentFormatting = true },
           filetypes = {
             "javascriptreact",
@@ -96,40 +104,19 @@ return {
               ["rust-analyzer"] = opts.settings['rust-analyzer'],
             },
             capabilities = capabilities,
-            auto_format = true,
             standalone = false,
             on_attach = function(client, bufnr)
               on_attach(client, bufnr)
-              -- vim.keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
-              -- vim.keymap.set("n", "<C-.>", rt.code_action_group.code_action_group, { buffer = bufnr })
+              vim.keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
+              -- vim.keymap.set("n", "<C-Space>", rt.code_action_group.code_action_group, { buffer = bufnr })
               vim.keymap.set("n", "<Leader>rc", rt.open_cargo_toml.open_cargo_toml, { buffer = bufnr })
               vim.keymap.set("n", "<Leader>rp", rt.parent_module.parent_module, { buffer = bufnr })
               vim.keymap.set("n", "<Leader>rr", "<cmd>RustRun<CR>", { buffer = bufnr })
               vim.keymap.set("n", "<Leader>rt", "<cmd>RustTest!<CR>", { buffer = bufnr })
-              vim.keymap.set("n", "<C-j>", vim.diagnostic.goto_next)
-              vim.keymap.set("n", "<C-k>", vim.diagnostic.goto_prev)
             end,
           },
         })
       end
-    })
-
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-      vim.lsp.handlers.hover, {
-        border = "rounded"
-      }
-    )
-
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-      vim.lsp.handlers.signature_help, {
-        border = "rounded"
-      }
-    )
-    vim.diagnostic.config({
-      update_in_insert = true,
-      float = {
-        border = "rounded"
-      }
     })
   end,
   opts = {

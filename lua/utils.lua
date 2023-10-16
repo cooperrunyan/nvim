@@ -43,7 +43,7 @@ M.total_ram = function()
 end
 
 M.avail_ram = function()
-  return M.fmt_mem(vim.loop.get_available_memory())
+  return M.fmt_mem(vim.loop.get_free_memory())
 end
 
 M.user = function()

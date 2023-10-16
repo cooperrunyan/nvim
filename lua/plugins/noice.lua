@@ -1,6 +1,7 @@
 return {
   "folke/noice.nvim",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
+  lazy = false,
   opts = {
     lsp = {
       override = {
@@ -16,15 +17,15 @@ return {
   },
   dependencies = {
     "MunifTanjim/nui.nvim",
-    -- "rcarriga/nvim-notify",
+    "rcarriga/nvim-notify",
   },
-  -- config = function(_, opts)
-  -- require("notify").setup({
-  --   render = "minimal",
-  --   max_width = function()
-  --     return math.floor(vim.o.columns * 0.5)
-  --   end,
-  -- })
-  -- require("noice").setup(opts)
-  -- end,
+  config = function(_, opts)
+    require("notify").setup({
+      render = "minimal",
+      max_width = function()
+        return math.floor(vim.o.columns * 0.5)
+      end,
+    })
+    require("noice").setup(opts)
+  end,
 }

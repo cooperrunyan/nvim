@@ -14,9 +14,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require("core")
 
-vim.loader.enable()
+-- vim.loader.enable()
 
 require("lazy").setup("plugins", {
+  defaults = {
+    lazy = true,
+  },
+  ui = {
+    border = "rounded",
+  },
   performance = {
     rtp = {
       -- disable some rtp plugins

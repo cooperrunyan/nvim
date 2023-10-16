@@ -38,35 +38,89 @@ vim.opt.splitbelow = true
 
 vim.opt.iskeyword:append("-")
 
-vim.keymap.set("n", "<S-u>", "<cmd>redo<CR>")
-vim.keymap.set("n", "<leader>q", "q")
-vim.keymap.set("n", "q", "<cmd>q<CR>")
+local k = vim.keymap.set
+local n = function(...) k("n", ...) end
+local v = function(...) k("v", ...) end
+local i = function(...) k("i", ...) end
+local t = function(...) k("t", ...) end
+local c = function(...) k("c", ...) end
 
-vim.keymap.set("n", "<D-s>", ":w<CR>")
-vim.keymap.set("v", "<D-c>", '"+y')
-vim.keymap.set("n", "<D-v>", '"+P')
-vim.keymap.set("v", "<D-v>", '"+P')
-vim.keymap.set("c", "<D-v>", "<C-R>+")
-vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli')
+n("<S-u>", "<cmd>redo<CR>")
+n("<leader>q", "<cmd>q<CR>")
+n("<leader>ww", "<cmd>w<CR>")
+n("<leader>wa", "<cmd>wa<CR>")
 
-vim.keymap.set("n", "<leader>sl", "<cmd>wincmd l<CR>")
-vim.keymap.set("n", "<leader>sj", "<cmd>wincmd j<CR>")
-vim.keymap.set("n", "<leader>sk", "<cmd>wincmd k<CR>")
-vim.keymap.set("n", "<leader>sh", "<cmd>wincmd h<CR>")
-vim.keymap.set("n", "<leader>ss", "<C-w>v")
-vim.keymap.set("n", "<leader>se", "<C-w>=")
-vim.keymap.set("n", "<leader>sq", "<cmd>close<CR>")
+n("<D-s>", ":w<CR>")
+v("<D-c>", '"+y')
+n("<D-v>", '"+P')
+v("<D-v>", '"+P')
+c("<D-v>", "<C-R>+")
+i("<D-v>", '<ESC>l"+Pli')
 
-vim.keymap.set("n", "tt", "<cmd>tabnew<CR>")   -- open new tab
-vim.keymap.set("n", "tq", "<cmd>tabclose<CR>") -- close tab
-vim.keymap.set("n", "to", "<cmd>tabo<CR>")     -- close other tabs
-vim.keymap.set("n", "tn", "<cmd>tabn<CR>")     -- go to next tab
-vim.keymap.set("n", "<tab>", "<cmd>tabn<CR>")  -- go to next tab
-vim.keymap.set("n", "tp", "<cmd>tabp<CR>")     -- previous tab
+n("<C-L>", "<cmd>wincmd l<CR>")
+n("<C-J>", "<cmd>wincmd j<CR>")
+n("<C-K>", "<cmd>wincmd k<CR>")
+n("<C-H>", "<cmd>wincmd h<CR>")
+n("<leader>ss", "<C-w>v")
+n("<leader>se", "<C-w>=")
+n("<leader>sq", "<cmd>close<CR>")
 
-vim.keymap.set("n", "z", "<cmd>ter<cr>i")
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+n("tt", "<cmd>tab split<CR>")            -- open new tab
+n("<leader><tab>", "<cmd>tab split<CR>") -- new tab
+n("tq", "<cmd>tabclose<CR>")             -- close tab
+n("to", "<cmd>tabo<CR>")                 -- close other tabs
+n("tn", "<cmd>tabn<CR>")                 -- go to next tab
+n("<tab>", "<cmd>tabn<CR>")              -- go to next tab
+n("<S-tab>", "<cmd>tabp<CR>")            -- go to next tab
+n("tp", "<cmd>tabp<CR>")                 -- previous tab
 
-vim.keymap.set("n", "<leader>chx", "<cmd>!chmod a+x %<CR>")
+n("z", "<cmd>ter<cr>i")
+t("<Esc>", "<C-\\><C-n>")
+
+n("<leader>chx", "<cmd>!chmod a+x %<CR>")
+
+n("<C-.>", vim.lsp.buf.code_action)
+n("<C-Space>", vim.lsp.buf.code_action)
+n("K", vim.lsp.buf.hover)
+n("gr", vim.lsp.buf.references)
+n("<leader>r", vim.lsp.buf.rename)
+n("gd", vim.lsp.buf.declaration)
+n("gK", vim.lsp.buf.signature_help)
+
+local motion = function(key)
+  i("<C-" .. key .. ">", "<C-o>" .. key, { remap = "true" })
+end
+
+motion("h")
+motion("j")
+motion("k")
+motion("l")
+motion("p")
+motion("o")
+motion("w")
+motion("b")
+motion("u")
+motion("$")
+motion("^")
+motion("0")
+
 
 vim.api.nvim_set_hl(0, "FloatBoarder", { link = "Normal" })
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = "rounded"
+  }
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help, {
+    border = "rounded"
+  }
+)
+vim.diagnostic.config({
+  update_in_insert = true,
+  float = {
+    border = "rounded"
+  }
+})

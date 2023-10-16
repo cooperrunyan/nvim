@@ -5,7 +5,6 @@ return {
     "nvim-lua/plenary.nvim",
     "hrsh7th/nvim-cmp",
   },
-  ft = { "rust", "toml" },
   opts = {
     src = {
       cmp = {
