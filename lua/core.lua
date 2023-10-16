@@ -44,11 +44,17 @@ local v = function(...) k("v", ...) end
 local i = function(...) k("i", ...) end
 local t = function(...) k("t", ...) end
 local c = function(...) k("c", ...) end
+local x = function(...) k("x", ...) end
 
 n("<S-u>", "<cmd>redo<CR>")
 n("<leader>q", "<cmd>q<CR>")
 n("<leader>ww", "<cmd>w<CR>")
 n("<leader>wa", "<cmd>wa<CR>")
+
+v("J", ":m '>+1<CR>gv=gv")
+v("K", ":m '>-2<CR>gv=gv")
+
+x("<leader>p", "\"_dP")
 
 n("<D-s>", ":w<CR>")
 v("<D-c>", '"+y')
@@ -88,7 +94,7 @@ n("gd", vim.lsp.buf.declaration)
 n("gK", vim.lsp.buf.signature_help)
 
 local motion = function(key)
-  i("<C-" .. key .. ">", "<C-o>" .. key, { remap = "true" })
+  i("<C-" .. key .. ">", "<C-o>" .. key)
 end
 
 motion("h")

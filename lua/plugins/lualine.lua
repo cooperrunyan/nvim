@@ -35,6 +35,11 @@ local filetype = {
 return {
   "nvim-lualine/lualine.nvim",
   lazy = false,
+  config = function(_, opts)
+    local lazy_status = require('lazy.status')
+    opts.sections.lualine_x = { { lazy_status.updates, cond = lazy_status.has_updates } }
+    require('lualine').setup(opts)
+  end,
   opts = {
     options = {
       theme = "tokyonight",
@@ -43,15 +48,16 @@ return {
       section_separators = { left = "", right = "" },
       disabled_filetypes = {
         NvimTree = {},
+        alpha = {},
       },
     },
     sections = {
       lualine_a = { mode },
       lualine_b = { branch },
       lualine_c = { diagnostics },
-      lualine_x = { filetype },
-      lualine_y = { filename },
-      lualine_z = {},
+      -- lualine_x = { lazy_status.updates, cond = lazy_status.has_updates},
+      lualine_y = { filetype },
+      lualine_z = { filename },
     },
     inactive_sections = {
       lualine_a = {},
@@ -66,7 +72,7 @@ return {
       "trouble",
       "man",
       "nvim-dap-ui",
-      "fzf",
+      "lazy",
       "quickfix",
       "toggleterm",
     },

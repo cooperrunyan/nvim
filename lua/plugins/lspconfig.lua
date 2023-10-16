@@ -6,13 +6,20 @@ return {
     "lukas-reineke/lsp-format.nvim",
     "creativenull/efmls-configs-nvim",
     "simrat39/rust-tools.nvim",
+    'j-hui/fidget.nvim',
   },
   event = { "VeryLazy" },
   config = function(_, opts)
     local mason_lspconfig = require("mason-lspconfig")
+    local lspconfig = require('lspconfig')
 
-    local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local lsp_defaults = lspconfig.util.default_config
 
+    lsp_defaults.capabilities = vim.tbl_deep_extend(
+      'force',
+      lsp_defaults.capabilities,
+      require('cmp_nvim_lsp').default_capabilities()
+    )
     local on_attach = function(client, bufnr)
       require('lsp-format').on_attach(client, bufnr)
     end
@@ -21,7 +28,6 @@ return {
       function(srv)
         local o = {
           on_attach = on_attach,
-          capabilities = capabilities,
         }
 
         if srv == "lua_ls" then
@@ -53,7 +59,7 @@ return {
           vim.keymap.set("n", "<C-Space>", inspect(vim.lsp.buf.code_action))
         end
 
-        require('lspconfig')[srv].setup(o)
+        lspconfig[srv].setup(o)
       end,
       ['biome'] = function() end,
       ['efm'] = function()
@@ -67,7 +73,6 @@ return {
 
         require('lspconfig').efm.setup({
           on_attach = on_attach,
-          capabilities = capabilities,
           init_options = { documentFormatting = true },
           filetypes = {
             "javascriptreact",
@@ -103,7 +108,7 @@ return {
             settings = {
               ["rust-analyzer"] = opts.settings['rust-analyzer'],
             },
-            capabilities = capabilities,
+            root_dir = require('lspconfig.util').root_pattern('Cargo.toml'),
             standalone = false,
             on_attach = function(client, bufnr)
               on_attach(client, bufnr)
