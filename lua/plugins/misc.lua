@@ -4,5 +4,8 @@ return {
   },
   {
     "vim-scripts/ReplaceWithRegister"
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
   }
 }

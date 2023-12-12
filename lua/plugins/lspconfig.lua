@@ -104,6 +104,7 @@ return {
         local rt = require("rust-tools")
 
         rt.setup({
+          root_dir = require('lspconfig.util').root_pattern('Cargo.toml'),
           server = {
             settings = {
               ["rust-analyzer"] = opts.settings['rust-analyzer'],

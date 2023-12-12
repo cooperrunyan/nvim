@@ -6,6 +6,8 @@ vim.o.guifont = "RobotoMono Nerd Font:h14"
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.nu = true
+vim.opt.scrolloff = 8
+vim.opt.updatetime = 50
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -31,7 +33,7 @@ vim.opt.infercase = true
 vim.opt.backspace = "indent,eol,start"
 vim.opt.completeopt = "menuone,noinsert,preview"
 
-vim.opt.clipboard:append("unnamedplus")
+-- vim.opt.clipboard:append("unnamedplus")
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -55,6 +57,8 @@ v("J", ":m '>+1<CR>gv=gv")
 v("K", ":m '>-2<CR>gv=gv")
 
 x("<leader>p", "\"_dP")
+n("<leader>y", "\"+y")
+v("<leader>y", "\"+y")
 
 n("<D-s>", ":w<CR>")
 v("<D-c>", '"+y')

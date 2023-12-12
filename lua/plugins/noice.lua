@@ -1,7 +1,6 @@
 return {
   "folke/noice.nvim",
-  -- event = "VeryLazy",
-  lazy = false,
+  event = "VeryLazy",
   opts = {
     lsp = {
       override = {
@@ -13,6 +12,13 @@ return {
     presets = {
       command_palette = true,
       long_message_to_split = true,
+      lsp_doc_border = true,
+    },
+    messages = {
+      view = "mini"
+    },
+    notify = {
+      view = "mini"
     },
   },
   dependencies = {

@@ -21,7 +21,7 @@ return {
       local lspkind = require("lspkind")
       local compare = cmp.config.compare
 
-      cmp.setup({
+      local opts = {
         formatting = {
           format = lspkind.cmp_format({
             mode = "symbol_text",
@@ -39,7 +39,7 @@ return {
           documentation = cmp.config.window.bordered(),
         },
         completion = {
-          completeopt = "menu,menuone,noinsert,preview",
+          completeopt = "menu,noinsert,preview",
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-k>"] = cmp.mapping.select_prev_item(),
@@ -80,22 +80,15 @@ return {
             -- compare.length, -- useless
           },
         }
-      })
-      cmp.setup.cmdline({ '/', '?' }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "cmdline" },
-          { name = 'buffer' }
-        }
-      })
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path' }
-        }, {
-          { name = 'cmdline' }
-        })
-      })
+      }
+      cmp.setup(opts)
+      opts.sources = {
+        { name = "cmdline" },
+        { name = 'buffer' },
+        { name = 'path' },
+      }
+      cmp.setup.cmdline({ '/', '?' }, opts)
+      cmp.setup.cmdline(':', opts, { { name = 'cmdline' } })
     end,
   },
   {
