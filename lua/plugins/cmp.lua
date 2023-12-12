@@ -88,7 +88,7 @@ return {
         { name = 'path' },
       }
       cmp.setup.cmdline({ '/', '?' }, opts)
-      cmp.setup.cmdline(':', opts, { { name = 'cmdline' } })
+      -- cmp.setup.cmdline(':', opts, { { name = 'cmdline' } })
     end,
   },
   {
