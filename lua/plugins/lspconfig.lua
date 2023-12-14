@@ -8,7 +8,7 @@ return {
     "simrat39/rust-tools.nvim",
     'j-hui/fidget.nvim',
   },
-  event = { "VeryLazy" },
+  event = { "VeryLazy", "BufEnter" },
   config = function(_, opts)
     local mason_lspconfig = require("mason-lspconfig")
     local lspconfig = require('lspconfig')
@@ -23,6 +23,10 @@ return {
     local on_attach = function(client, bufnr)
       require('lsp-format').on_attach(client, bufnr)
     end
+
+    lspconfig.glsl_analyzer.setup({
+      on_attach = on_attach
+    })
 
     mason_lspconfig.setup_handlers({
       function(srv)
@@ -66,6 +70,7 @@ return {
         local fs = require('efmls-configs.fs')
         local biome = require('efmls-configs.formatters.biome')
         local prettierd = require('efmls-configs.formatters.prettier_d')
+        local stylua = require('efmls-configs.formatters.stylua')
         local denomd = {
           formatStdin = true,
           formatCommand = fs.executable("deno") .. " fmt --ext md -",
@@ -83,7 +88,8 @@ return {
             "html",
             "markdown",
             "yaml",
-            "graphql"
+            "graphql",
+            "lua",
           },
           settings = {
             languages = {
@@ -96,6 +102,7 @@ return {
               markdown = { denomd },
               yaml = { prettierd },
               graphql = { prettierd },
+              lua = { stylua }
             }
           }
         })

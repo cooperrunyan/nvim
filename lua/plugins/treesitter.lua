@@ -49,6 +49,7 @@ return {
       "vim",
       "vimdoc",
       "yaml",
+      "glsl",
     },
     playground = {
       enable = true,

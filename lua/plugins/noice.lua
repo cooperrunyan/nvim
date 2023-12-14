@@ -10,15 +10,22 @@ return {
       },
     },
     presets = {
-      command_palette = true,
+      -- command_palette = true,
       long_message_to_split = true,
       lsp_doc_border = true,
+      bottom_search = true,
     },
     messages = {
-      view = "mini"
+      view = "mini",
     },
     notify = {
-      view = "mini"
+      view = "mini",
+    },
+    cmdline = {
+      view = "cmdline",
+    },
+    hover = {
+      silent = true,
     },
   },
   dependencies = {

@@ -47,6 +47,7 @@ return {
       -- fmt = string.lower,
       section_separators = { left = "", right = "" },
       disabled_filetypes = {
+        statusline = { "alpha", "NvimTree" },
         NvimTree = {},
         alpha = {},
       },

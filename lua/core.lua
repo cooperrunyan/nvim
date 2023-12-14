@@ -33,6 +33,10 @@ vim.opt.infercase = true
 vim.opt.backspace = "indent,eol,start"
 vim.opt.completeopt = "menuone,noinsert,preview"
 
+vim.opt.autochdir = true
+vim.opt.autowrite = true
+vim.opt.autowriteall = true
+
 -- vim.opt.clipboard:append("unnamedplus")
 
 vim.opt.splitright = true
@@ -133,4 +137,28 @@ vim.diagnostic.config({
   float = {
     border = "rounded"
   }
+})
+
+
+-- Taken from lunarvim
+
+vim.api.nvim_create_augroup("_filetype_settings", {})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = "_filetype_settings",
+  pattern = "alpha",
+  callback = function()
+    vim.cmd([[set nobuflisted]])
+  end
+})
+
+vim.api.nvim_create_augroup("_general_settings", {})
+
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+  group = "_general_settings",
+  pattern = "*",
+  desc = "Highlight text on yank",
+  callback = function()
+    vim.highlight.on_yank { higroup = "Search", timeout = 200 }
+  end,
 })

@@ -1,22 +1,18 @@
 return {
   {
     'tpope/vim-surround',
-    lazy = false,
-    event = "VeryLazy"
+    event = "BufEnter"
   },
   {
     "vim-scripts/ReplaceWithRegister",
-    lazy = false,
-    event = "VeryLazy"
+    event = "BufEnter"
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    lazy = false,
-    event = "VeryLazy"
+    event = "BufEnter"
   },
   {
     "ThePrimeagen/vim-be-good",
-    lazy = false,
-    event = "VeryLazy"
+    command = "VimBeGood"
   }
 }
