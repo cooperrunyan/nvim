@@ -6,8 +6,11 @@ vim.o.guifont = "RobotoMono Nerd Font:h14"
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.nu = true
--- vim.opt.scrolloff = 8
 vim.opt.updatetime = 50
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = false
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -32,10 +35,6 @@ vim.opt.signcolumn = "yes"
 vim.opt.infercase = true
 vim.opt.backspace = "indent,eol,start"
 vim.opt.completeopt = "menuone,noinsert,preview"
-
-vim.opt.autochdir = true
-vim.opt.autowrite = true
-vim.opt.autowriteall = true
 
 -- vim.opt.clipboard:append("unnamedplus")
 
@@ -88,7 +87,6 @@ n("<tab>", "<cmd>tabn<CR>")              -- go to next tab
 n("<S-tab>", "<cmd>tabp<CR>")            -- go to next tab
 n("tp", "<cmd>tabp<CR>")                 -- previous tab
 
-n("z", "<cmd>ter<cr>i")
 t("<Esc>", "<C-\\><C-n>")
 
 n("<leader>chx", "<cmd>!chmod a+x %<CR>")
@@ -141,16 +139,6 @@ vim.diagnostic.config({
 
 
 -- Taken from lunarvim
-
-vim.api.nvim_create_augroup("_filetype_settings", {})
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = "_filetype_settings",
-  pattern = "alpha",
-  callback = function()
-    vim.cmd([[set nobuflisted]])
-  end
-})
 
 vim.api.nvim_create_augroup("_general_settings", {})
 

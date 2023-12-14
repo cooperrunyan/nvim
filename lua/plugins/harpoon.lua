@@ -3,7 +3,6 @@ return {
   keys = {
     "<leader>a", "<C-e>"
   },
-  lazy = true,
   config = function()
     local ui = require('harpoon.ui')
     local mark = require('harpoon.mark')

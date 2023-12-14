@@ -62,7 +62,8 @@ return {
           { name = "buffer",                   priority = 2 },
           { name = "path",                     priority = 3 },
           { name = "git",                      priority = 4 },
-          { name = "calc",                     priority = 5 }
+          { name = "calc",                     priority = 5 },
+          { name = "neorg",                    priority = 1001 }
         }),
         sorting = {
           priority_weight = 1.0,

@@ -1,21 +1,31 @@
 return {
   {
     'nvim-telescope/telescope.nvim',
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-ui-select.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = "make" },
     },
+    keys = {
+      { "<leader>ff",  ":Telescope find_files<cr>" },
+      { "<leader>fG",  ":Telescope git_files<cr>" },
+      { "<leader>fg",  ":Telescope live_grep<cr>" },
+      { "<leader>fb",  ":Telescope buffers<cr>" },
+      { "<leader>fh",  ":Telescope help_tags<cr>" },
+      { "<leader>fa",  ":Telescope builtin<cr>" },
+      { "<leader>fD",  ":Telescope diagnostics<cr>" },
+      { "<leader>fk",  ":Telescope keymaps<cr>" },
+      { "<leader>fr",  ":Telescope registers<cr>" },
+      { "<leader>fv",  ":Telescope vim_options<cr>" },
+      { "<leader>fc",  ":Telescope commands<cr>" },
+      { "<leader>fC",  ":Telescope autocommands<cr>" },
+      { "<leader>fm",  ":Telescope marks<cr>" },
+      { "<leader>fhc", ":Telescope command_history<cr>" },
+      { "<leader>fhs", ":Telescope search_history<cr>" },
+    },
     config = function()
       local actions = require("telescope.actions")
-      local builtin = require('telescope.builtin')
-
-      vim.keymap.set("n", "<leader>ff", builtin.find_files)
-      vim.keymap.set("n", "<leader>fG", builtin.git_files)
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep)
-      vim.keymap.set("n", "<leader>fb", builtin.buffers)
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags)
 
       require('telescope').setup({
         defaults = {
@@ -40,10 +50,39 @@ return {
               ["?"] = actions.which_key,
             },
           },
-          load_extensions = { "fzf", "yank_history", "ui-select", "noice" },
+          load_extensions = {
+            "fzf-native",
+            "ui-select",
+          },
         },
       })
     end
   },
+
+  {
+    'nvim-telescope/telescope-symbols.nvim',
+    keys = {
+      { "<leader>fs", ":Telescope symbols<cr>" }
+    },
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('telescope').load_extension('symbols')
+    end
+  },
+
+  {
+    "chip/telescope-software-licenses.nvim",
+    keys = {
+      { "<leader>fl", ":Telescope software-licenses find<cr>" },
+    },
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('telescope').load_extension('software-licenses')
+    end
+  }
 
 }

@@ -34,7 +34,6 @@ local filetype = {
 
 return {
   "nvim-lualine/lualine.nvim",
-  lazy = false,
   config = function(_, opts)
     local lazy_status = require('lazy.status')
     opts.sections.lualine_x = { { lazy_status.updates, cond = lazy_status.has_updates } }
@@ -47,9 +46,9 @@ return {
       -- fmt = string.lower,
       section_separators = { left = "", right = "" },
       disabled_filetypes = {
-        statusline = { "alpha", "NvimTree" },
-        NvimTree = {},
-        alpha = {},
+        -- statusline = { "alpha", "NvimTree" },
+        -- NvimTree = {},
+        -- alpha = {},
       },
     },
     sections = {

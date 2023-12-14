@@ -4,18 +4,18 @@ return {
   keys = {
     { "<leader>e", "<cmd>NvimTreeFocus<CR>" },
   },
-  lazy = false,
+  event = "VeryLazy",
   opts = {
     -- disable_netrw = true,
     hijack_netrw = true,
     -- hijack_cursor = true,
-    sync_root_with_cwd = true,
+    -- sync_root_with_cwd = true,
     -- select_prompts = true,
     -- prefer_startup_root = true,
     -- respect_buf_cwd = true,
     hijack_directories = {
       -- enable = true,
-      auto_open = true,
+      -- auto_open = true,
     },
     update_focused_file = {
       enable = true,
@@ -30,7 +30,7 @@ return {
         },
       },
       change_dir = {
-        enable = true
+        -- enable = true
       },
       remove_file = {
         close_window = true
@@ -123,12 +123,14 @@ return {
       api.config.mappings.default_on_attach(bufnr)
 
       vim.keymap.set('n', 'd', function() api.fs.trash(api.tree.get_node_under_cursor()) end, opts('Trash'))
+      vim.keymap.set('n', '<C-CR>', function() api.tree.change_root_to_node(api.tree.get_node_under_cursor()) end,
+        opts('Into'))
       vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
     end,
   },
   dependencies = {
     "nvim-tree/nvim-web-devicons",
-    "goolord/alpha-nvim",
+    -- "goolord/alpha-nvim",
   },
   config = function(_, opts)
     vim.g.loaded = 1
@@ -166,34 +168,6 @@ return {
       end
     end
 
-
-    local function open_tree(data)
-      local is_file    = vim.fn.filereadable(data.file) == 1
-      local is_unnamed = data.file == "" and (vim.bo[data.buf].buftype == "" or vim.bo[data.buf].buftype == "nofile")
-      local is_alone   = data.file:match(".*NvimTree_%d*$") ~= nil
-      local is_dir     = vim.fn.isdirectory(data.file) == 1 or is_alone
-
-      print(vim.inspect(is_file))
-      print(vim.inspect(is_unnamed))
-      print(vim.inspect(is_alone))
-      print(vim.inspect(is_dir))
-
-      print(vim.inspect((is_dir or is_unnamed) and not is_file))
-      print(vim.inspect((is_dir or is_unnamed)))
-      print(vim.inspect(not is_file))
-
-      require("nvim-tree.api").tree.toggle({
-        focus = (is_dir or is_unnamed) and not is_file,
-        -- find_file = not is_unnamed and is_file,
-        update_root = is_dir,
-      })
-    end
-
-    vim.api.nvim_create_autocmd({ "VimEnter" }, {
-      callback = open_tree,
-      nested = true,
-    })
-
     vim.api.nvim_create_autocmd("WinClosed", {
       callback = function()
         local winnr = tonumber(vim.fn.expand("<amatch>"))
@@ -201,6 +175,12 @@ return {
         -- vim.schedule_wrap(tab_win_closed(winnr))
       end,
       nested = true,
+    })
+
+
+    require("nvim-tree.api").tree.toggle({
+      focus = vim.fn.argc() == 0,
+      update_root = false,
     })
   end,
 }

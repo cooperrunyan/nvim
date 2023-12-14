@@ -13,6 +13,6 @@ return {
   },
   {
     "ThePrimeagen/vim-be-good",
-    command = "VimBeGood"
+    cmd = "VimBeGood"
   }
 }
