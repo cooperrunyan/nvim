@@ -100,7 +100,7 @@ return {
         ".DS_Store",
         "yarn.lock",
         "package-lock.json",
-        ".git/"
+        "^\\.git$"
       },
     },
     view = {
