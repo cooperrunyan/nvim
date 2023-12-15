@@ -42,6 +42,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 vim.opt.iskeyword:append("-")
+vim.opt.shortmess:append({ I = true })
 
 local k = vim.keymap.set
 local n = function(...) k("n", ...) end
