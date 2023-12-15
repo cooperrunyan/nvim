@@ -49,18 +49,21 @@ local v = function(...) k("v", ...) end
 local i = function(...) k("i", ...) end
 local t = function(...) k("t", ...) end
 local c = function(...) k("c", ...) end
-local x = function(...) k("x", ...) end
 
 n("<S-u>", "<cmd>redo<CR>")
 n("<leader>q", "<cmd>q<CR>")
 n("<leader>ww", "<cmd>w<CR>")
 n("<leader>wa", "<cmd>wa<CR>")
 
+n("v", "V")
+n("V", "v")
+
 v("J", ":m '>+1<CR>gv=gv")
 v("K", ":m '>-2<CR>gv=gv")
 
-x("<leader>p", "\"_dP")
-n("<leader>y", "\"+y")
+v("p", "\"_dP")
+n("<leader>p", "\"+p")
+n("<leader>yy", "\"+yy")
 v("<leader>y", "\"+y")
 
 n("<D-s>", ":w<CR>")
@@ -70,10 +73,10 @@ v("<D-v>", '"+P')
 c("<D-v>", "<C-R>+")
 i("<D-v>", '<ESC>l"+Pli')
 
-n("<C-L>", "<cmd>wincmd l<CR>")
-n("<C-J>", "<cmd>wincmd j<CR>")
-n("<C-K>", "<cmd>wincmd k<CR>")
-n("<C-H>", "<cmd>wincmd h<CR>")
+k({ "n", "v", "i" }, "<C-L>", "<cmd>wincmd l<CR>")
+k({ "n", "v", "i" }, "<C-J>", "<cmd>wincmd j<CR>")
+k({ "n", "v", "i" }, "<C-K>", "<cmd>wincmd k<CR>")
+k({ "n", "v", "i" }, "<C-H>", "<cmd>wincmd h<CR>")
 n("<leader>ss", "<C-w>v")
 n("<leader>se", "<C-w>=")
 n("<leader>sq", "<cmd>close<CR>")
