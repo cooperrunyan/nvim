@@ -14,5 +14,9 @@ return {
   {
     "ThePrimeagen/vim-be-good",
     cmd = "VimBeGood"
-  }
+  },
+  {
+    'tpope/vim-sleuth',
+    event = "InsertEnter"
+  },
 }
